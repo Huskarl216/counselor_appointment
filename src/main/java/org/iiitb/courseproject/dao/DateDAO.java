@@ -4,11 +4,17 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import org.iiitb.courseproject.model.Date;
+import org.iiitb.courseproject.model.Student;
 
 public class DateDAO extends HibernateDAO<Date> {
 	String entity="Date";
 
-	
-	
+	public List<Date> getAllDatesbyCounselorID(int id){
+		return super.findAll(entity, "Counselor_id", id);
+	}
+
+	public Date getDateByDateId(int id) {
+		return super.find(entity, "idDate", id);
+	}
 	
 }

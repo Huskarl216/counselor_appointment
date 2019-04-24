@@ -5,6 +5,11 @@ public class StudentBookingHistory {
 	private int Student_id;
 	private int Slot_id;
 	
+	
+	public StudentBookingHistory(int Student_id,int Slot_id) {
+		this.Student_id=Student_id;
+		this.Slot_id=Slot_id;
+	}
 
 	public int getIdHistory() {
 		return idHistory;

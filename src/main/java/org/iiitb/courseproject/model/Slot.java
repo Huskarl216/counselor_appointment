@@ -4,6 +4,7 @@ public class Slot{
 	private int idSlot;
 	private String SlotValue;
 	private int Date_id;
+	private boolean Status;
 	
 	public Slot() {
 		
@@ -33,5 +34,11 @@ public class Slot{
 		this.Date_id=Date_id;
 	}
 
+	public boolean getStatus() {
+		return Status;
+	}
 	
+	public void setStatus(boolean Status) {
+		this.Status=Status;
+	}
 }

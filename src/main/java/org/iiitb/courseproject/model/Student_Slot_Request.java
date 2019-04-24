@@ -6,6 +6,11 @@ public class Student_Slot_Request {
 	private int Slot_id;
 	
 
+	public Student_Slot_Request(int Student_id,int Slot_id) {
+		this.Student_id=Student_id;
+		this.Slot_id=Slot_id;
+	}
+	
 	public int getIdRequest() {
 		return idRequest;
 	}
