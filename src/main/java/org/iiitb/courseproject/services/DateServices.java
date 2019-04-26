@@ -32,6 +32,7 @@ public class DateServices{
 	@Produces("application/json")
 	public List<Date> getDatesByCounselorId(@PathParam("id") int category_id){
 		
+//		System.out.println("Hello");
 		DateDAO dao = new DateDAO();
 		List<Date> dates = dao.getAllDatesbyCounselorID(category_id);
 		if(dates==null)

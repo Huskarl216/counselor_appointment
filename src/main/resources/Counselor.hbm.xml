@@ -3,7 +3,7 @@
                                          "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	 <class name="org.iiitb.courseproject.model.Counselor" table="Item">
+	 <class name="org.iiitb.courseproject.model.Counselor" table="Counselor">
 	 
       <meta attribute = "class-description">
          This class contains the Counselor detail. 
@@ -15,6 +15,7 @@
       
       <property name = "Counseloremail" column = "Counseloremail" type = "string"/>
       <property name = "name" column = "name" type = "string"/>
+      <property name = "password" column = "password" type = "string"/>
      
 	</class>
 	

@@ -3,7 +3,7 @@
                                          "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	 <class name="org.iiitb.courseproject.model.Slot" table="Item">
+	 <class name="org.iiitb.courseproject.model.Slot" table="Slot">
 	 
       <meta attribute = "class-description">
          This class contains the Student detail. 
@@ -13,6 +13,7 @@
          <generator class="native"/>
       </id>
       
+      <property name = "Status" column = "Status" type = "boolean"/>
       <property name = "SlotValue" column = "SlotValue" type = "string"/>
       <property name = "Date_id" column = "Date_id" type = "int"/>
       

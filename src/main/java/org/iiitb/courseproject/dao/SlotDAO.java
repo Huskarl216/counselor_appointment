@@ -17,11 +17,17 @@ public class SlotDAO extends HibernateDAO<Slot> {
 	
 	public int getDateIdBySlotId(int slotid) {
 		Slot s=super.find(entity, "idSlot", slotid);
-		return s.getDate_id();
+		return s.getDate_id();		
 	}
 	
 	public Slot getSlotbySlotId(int slotid) {
 		return super.find(entity,"idSlot", slotid);
+	}
+	
+	public int getCounselorIdBySlotId(int slotid) {
+		int date_id=this.getDateIdBySlotId(slotid);
+		DateDAO d=new DateDAO();
+		return d.getCounselorIdByDateId(date_id);
 	}
 	
 	public int setStatus(Slot slot,int slot_id) {

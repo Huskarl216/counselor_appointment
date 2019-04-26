@@ -30,11 +30,128 @@ public class Student_Slot_RequestServices{
 	@Produces("application/json")
 	public List<Student_Slot_Request> getRequestsBySlotId(@PathParam("id") int slot_id){
 		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
+		StudentDAO studentdao = new StudentDAO();
+		
 		List<Student_Slot_Request> requests = ssrdao.getRequestsBySlotId(slot_id);
 		if(requests==null)
 			return null;
 		else
 			return requests;
-		
 	}
+	
+	@POST
+	@Path("/getRequestsByStudentId/{id}")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public List<Student_Slot_Request> getRequestsByStudentId(@PathParam("id") int student_id){
+		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
+		StudentDAO studentdao = new StudentDAO();
+		
+		List<Student_Slot_Request> requests = ssrdao.getRequestsByStudentId(student_id);
+		if(requests==null)
+			return null;
+		else
+			return requests;
+	}
+	
+
+	@POST
+	@Path("/getRequestsByStudentIdAndCounselorId")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public String getRequestsByStudentIdAndCounselorId(String data) throws JSONException {
+		JSONObject object = new JSONObject(data);
+		int counselor_id = (int)object.getInt("counselor_id");
+		int student_id = (int)object.getInt("student_id");
+		
+		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
+		SlotDAO s=new SlotDAO();
+		List<Student_Slot_Request> list= ssrdao.getRequestsByStudentId(student_id);
+		JSONArray first = new JSONArray();
+		
+		try {
+			for(int i=0;i<list.size();i++) {
+				Student_Slot_Request ssr=list.get(i);
+				JSONObject details= new JSONObject();
+				int cid=s.getCounselorIdBySlotId(ssr.getSlot_id());
+				if(counselor_id==cid) {
+					details.append("slot_id", ssr.getSlot_id());
+					details.append("request_id", ssr.getIdRequest());					
+				}
+				first.put(details);
+			}
+			return first.toString();
+		}catch(Exception e) {	
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	
+	@POST
+	@Path("/getRequestsBySlotIdWithStudentNames/{id}")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public String getRequestsBySlotIdWithStudentNames(@PathParam("id") int slot_id) throws JSONException{
+		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
+		StudentDAO studentdao = new StudentDAO();
+		
+		List<Student_Slot_Request> requests = ssrdao.getRequestsBySlotId(slot_id);
+		
+		JSONArray allrequests = new JSONArray();
+		
+		try {
+			for(int i=0;i<requests.size();i++) {
+				Student_Slot_Request Request = requests.get(i);
+				JSONObject object= new JSONObject();
+				object.append("Student_id", Request.getStudent_id());
+				object.append("Slot_id",Request.getSlot_id());
+				object.append("idRequest",Request.getIdRequest());
+				
+				Student s = studentdao.getStudentById(Request.getStudent_id());
+				object.append("name",s.getName());
+				
+				allrequests.put(object);
+				
+			}
+			return allrequests.toString();
+		}catch(Exception e) {	
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@POST
+	@Path("/addRequest")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public int addRequest(String data) throws JSONException{
+		JSONObject object = new JSONObject(data);
+		int slot_id = (int)object.getInt("slot_id");
+		int student_id = (int)object.getInt("student_id");
+
+		SlotDAO sdao=new SlotDAO();
+		Slot slot=sdao.getSlotbySlotId(slot_id);
+		if(slot==null) {
+			return 0;
+		}
+		if(slot.isStatus()) {
+			return 0;
+		}
+		
+		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
+
+		
+		Student_Slot_Request S=new Student_Slot_Request();
+		S.setSlot_id(slot_id);
+		S.setStudent_id(student_id);
+		try {
+			return ssrdao.addRequest(S);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 }

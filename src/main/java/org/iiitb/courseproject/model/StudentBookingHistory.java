@@ -11,27 +11,34 @@ public class StudentBookingHistory {
 		this.Slot_id=Slot_id;
 	}
 
+
 	public int getIdHistory() {
 		return idHistory;
 	}
-	
+
+
 	public void setIdHistory(int idHistory) {
-		this.idHistory=idHistory;
+		this.idHistory = idHistory;
 	}
-	
-	public int getStudent_Id() {
+
+
+	public int getStudent_id() {
 		return Student_id;
 	}
-	
-	public void setStudent_Id(int Student_id) {
-		this.Student_id=Student_id;
+
+
+	public void setStudent_id(int student_id) {
+		Student_id = student_id;
 	}
-	
-	public int getSlot_Id() {
+
+
+	public int getSlot_id() {
 		return Slot_id;
 	}
-	
-	public void setSlot_Id(int Slot_id) {
-		this.Slot_id=Slot_id;
+
+
+	public void setSlot_id(int slot_id) {
+		Slot_id = slot_id;
 	}
+
 }

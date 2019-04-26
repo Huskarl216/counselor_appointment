@@ -35,7 +35,9 @@ public class StudentServices{
 		int student_id = (int)Data.getInt("student_id");
 		int slot_id = (int)Data.getInt("slot_id");
 		
-		Student_Slot_Request R = new Student_Slot_Request(student_id,slot_id);
+		Student_Slot_Request R = new Student_Slot_Request();
+		R.setSlot_id(slot_id);
+		R.setStudent_id(student_id);
 		
 		Student_Slot_RequestDAO S=new Student_Slot_RequestDAO();
 		return S.addRequest(R);

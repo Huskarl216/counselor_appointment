@@ -49,7 +49,7 @@ public class CounselorServices{
 		SlotDAO slotdao = new SlotDAO();
 		Slot s= slotdao.getSlotbySlotId(slot_id);
 		
-		if(s.getStatus()==true) {
+		if(s.isStatus()==true) {
 			return -1;
 		}
 		else {

@@ -78,7 +78,7 @@ $(document).ready(function () {
 	function getDatesByCounselorId(coun_id){
 		
 		$.ajax({
-			url:"http://localhost:8080/flipkart/webapi/Date/getDatesByCounselorId/"+coun_id,
+			url:"http://localhost:8080/Counselor_Appointment/webapi/Date/getDatesByCounselorId/"+coun_id,
 			type:"POST",
 			cache:false,
 			contentType:false,
@@ -107,7 +107,7 @@ $(document).ready(function () {
 	function getSlotsByDateId(date_id){
 		
 		$.ajax({
-			url:"http://localhost:8080/flipkart/webapi/Slot/getSlotsByDateId/"+date_id,
+			url:"http://localhost:8080/Counselor_Appointment/webapi/Slot/getSlotsByDateId/"+date_id,
 			type:"POST",
 			cache:false,
 			contentType:false,
@@ -138,7 +138,7 @@ $(document).ready(function () {
 	
 	function getRequestsBySlotId(slot_id){		
 		$.ajax({
-			url:"http://localhost:8080/flipkart/webapi/Student_Slot_Request/getRequestsBySlotId/"+slot_id,
+			url:"http://localhost:8080/Counselor_Appointment/Student_Slot_Request/getRequestsBySlotId/"+slot_id,
 			type:"POST",
 			cache:false,
 			contentType:false,

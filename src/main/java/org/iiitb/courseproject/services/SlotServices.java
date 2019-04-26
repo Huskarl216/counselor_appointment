@@ -39,7 +39,6 @@ public class SlotServices{
 			return slots;
 	}
 	
-	
 	@POST
 	@Path("/getSlotsByStudentId/{id}")
 	@Consumes("application/json")
@@ -53,4 +52,16 @@ public class SlotServices{
 		else
 			return bookings;
 	}
+	
+	@POST
+	@Path("/getDateIdBySlotId/{id}")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public int getDateIdBySlotId(@PathParam("id") int slot_id){
+		SlotDAO s=new SlotDAO();
+		return s.getDateIdBySlotId(slot_id);
+	}
+	
+	
+	
 }

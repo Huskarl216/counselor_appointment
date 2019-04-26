@@ -5,40 +5,31 @@ public class Slot{
 	private String SlotValue;
 	private int Date_id;
 	private boolean Status;
-	
-	public Slot() {
-		
-	}
-	
 	public int getIdSlot() {
 		return idSlot;
 	}
-	
 	public void setIdSlot(int idSlot) {
-		this.idSlot=idSlot;
+		this.idSlot = idSlot;
 	}
-
 	public String getSlotValue() {
 		return SlotValue;
 	}
-
-	public void setSlotValue(String SlotValue) {
-		this.SlotValue=SlotValue;
+	public void setSlotValue(String slotValue) {
+		SlotValue = slotValue;
 	}
-	
 	public int getDate_id() {
 		return Date_id;
 	}
-	
-	public void setDate_id(int Date_id) {
-		this.Date_id=Date_id;
+	public void setDate_id(int date_id) {
+		Date_id = date_id;
 	}
-
-	public boolean getStatus() {
+	public boolean isStatus() {
 		return Status;
 	}
-	
-	public void setStatus(boolean Status) {
-		this.Status=Status;
+	public void setStatus(boolean status) {
+		Status = status;
 	}
+	
+	
+	
 }

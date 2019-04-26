@@ -3,7 +3,7 @@
                                          "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	 <class name="org.iiitb.courseproject.model.Student" table="Item">
+	 <class name="org.iiitb.courseproject.model.Student_Slot_Request" table="Student_Slot_Request">
 	 
       <meta attribute = "class-description">
          This class contains the Date detail. 

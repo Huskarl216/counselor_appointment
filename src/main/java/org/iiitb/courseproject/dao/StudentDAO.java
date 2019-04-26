@@ -25,7 +25,11 @@ public class StudentDAO extends HibernateDAO<Student> {
 	public Student getStudentByEmail(String email) {
 		return super.find(entity, "email", email);
 	}
-	
+
+	public Student getStudentById(int id) {
+		return super.find(entity, "idStudent", id);
+	}
+
 	public int addStudent(Student user)
 	{
 		try {

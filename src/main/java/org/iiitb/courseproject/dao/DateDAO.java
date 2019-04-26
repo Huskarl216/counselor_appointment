@@ -17,4 +17,8 @@ public class DateDAO extends HibernateDAO<Date> {
 		return super.find(entity, "idDate", id);
 	}
 	
+	public int getCounselorIdByDateId(int counselor_id) {
+		Date d=super.find(entity, "Counselor_id", counselor_id);		
+		return d.getCounselor_id();
+	}
 }

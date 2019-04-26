@@ -3,7 +3,7 @@
                                          "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	 <class name="org.iiitb.courseproject.model.Student" table="Item">
+	 <class name="org.iiitb.courseproject.model.Student" table="Student">
 	 
       <meta attribute = "class-description">
          This class contains the Date detail. 
@@ -13,8 +13,9 @@
          <generator class="native"/>
       </id>
       
-      <property name = "Studentemail" column = "Studentemail" type = "string"/>
+      <property name = "Studentemail" column = "Studentemail" type = "string" />
       <property name = "name" column = "name" type = "string"/>
+      <property name = "password" column = "password" type = "string"/>
      
 	</class>
 	
