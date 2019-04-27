@@ -43,7 +43,8 @@ $(document).ready(function () {
 	
 	$("body").on("click",'.classrequestbutton',function(){
 		var slot_id=$(this).attr("id").split("_")[1];
-		changeSingleSlotToRequestedSlot(slot_id);
+		addRequest(1,slot_id);
+		changeSingleSlotToRequestedSlot(slot_id);			
 	});
 
 	function displayDates(table) {
@@ -85,7 +86,7 @@ $(document).ready(function () {
 				$("#idslotlist_"+dateid).append("<div class='classslot ' id='idslot_"+slot_id+"' > <a> "+time+" </a> <button class='classrequestbutton' id='idrequestbutton_"+slot_id+"'> Request </button> </div>");	
 			}
 			else{
-				$("#idslotlist_"+dateid).append("<div class='classslot classslotBooked ' > "+time+" </div>");	
+				$("#idslotlist_"+dateid).append("<div class='classslot classslotBooked '  id='idslot_"+slot_id+"' > "+time+" </div>");	
 			}
 			//Later based on booking condition you will change class name
 		}
@@ -97,7 +98,7 @@ $(document).ready(function () {
 			console.log(Object.keys(table[i]));
 			var object = table[i];
 			var slot_id=object.slot_id;
-			alert(slot_id);
+//			alert(slot_id);
 			
 			changeSingleSlotToRequestedSlot(slot_id);
 		}
@@ -108,10 +109,30 @@ $(document).ready(function () {
 //		alert("#idrequestbutton_"+slot_id);
 //		$("#idrequestbutton_"+slot_id).hide();	
 		$("#idrequestbutton_"+slot_id).remove();	
-		alert(slot_id);
+//		alert(slot_id);
 //		$("#idslot_"+slot_id).removeChild("#idrequestbutton_"+slot_id);
 		$("#idslot_"+slot_id).addClass(" classslotRequested");
 	}
+	
+	function changeSlotsToBookedSlots(table){
+		alert(table);
+		for(var i=0;i<table.length;i++){
+			console.log(Object.keys(table[i]));
+			var object = table[i];
+			var slot_id=object.slot_id;			
+			changeSingleSlotToBookedSlot(slot_id);
+		}
+	}
+	
+	function changeSingleSlotToBookedSlot(slot_id){
+//		alert("Hi");
+		$("#idrequestbutton_"+slot_id).remove();	
+//		alert("Hello");
+//		alert(slot_id);
+		$("#idslot_"+slot_id).removeClass("classslotBooked");
+		$("#idslot_"+slot_id).addClass(" classslotBookedByYou");
+	}
+
 	
 	function getDatesByCounselorId(coun_id){
 		
@@ -133,6 +154,7 @@ $(document).ready(function () {
 	        		}
 	        		
 	        		getRequestsByStudentIdAndCounselorId(1,coun_id);
+	        		getBookingsByStudentIdAndCounselorId(1,coun_id);
                 }
 	        	
 	        	else
@@ -191,7 +213,7 @@ $(document).ready(function () {
 	        	
 	        	if(data)
 	        	{
-	        		alert(data);
+//	        		alert(data);
 	        		changeSlotsToRequestedSlots(data);
                 }
 	        	
@@ -206,11 +228,48 @@ $(document).ready(function () {
 		});
 	};
 
+	function getBookingsByStudentIdAndCounselorId(student_id,counselor_id){
+		var object = JSON.stringify({
+			student_id : student_id,
+			counselor_id : counselor_id,
+		});
+		
+		$.ajax({
+			url:"http://localhost:8080/Counselor_Appointment/webapi/StudentBookingHistory/getBookingsByStudentIdAndCounselorId",
+			data: object,
+//			url:"http://localhost:8080/flipkart/webapi/items/getByPrice",
+//			url:"http://localhost:8080/flipkart/webapi/items/getReport",
+			type:"POST",
+			dataType: "json",
+			contentType: "application/json",
+	        success : function(data){
+	        	
+	        	if(data)
+	        	{
+//	        		alert(data);
+	        		changeSlotsToBookedSlots(data);
+                }
+	        	
+	        	else
+	        		alert("failed to get requests");
+	        },
+	        
+	        error : function(data){
+	        	alert("failed to get requests !");
+	        }
+	        
+		});
+	};
+
+	
 	function addRequest(student_id,slot_id){
 		var object = JSON.stringify({
 			student_id : student_id,
 			slot_id : slot_id,
 		});
+		
+//		alert(student_id);
+//		alert(slot_id)
 		
 		$.ajax({
 			url:"http://localhost:8080/Counselor_Appointment/webapi/Student_Slot_Request/addRequest",
@@ -224,16 +283,19 @@ $(document).ready(function () {
 	        	
 	        	if(data)
 	        	{
-	        		alert(data);
+	        		if(data==0){
+	        			location.reload();
+	        		}
 	        		
                 }
 	        	
 	        	else
-	        		alert("failed to get requests");
+	        		alert("failed to add request");
 	        },
 	        
 	        error : function(data){
-	        	alert("failed to get requests !");
+	        	//location.reload();
+	        	alert("failed to add request !");
 	        }
 	        
 		});		

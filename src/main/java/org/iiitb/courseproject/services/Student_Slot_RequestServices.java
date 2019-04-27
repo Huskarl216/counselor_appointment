@@ -69,16 +69,27 @@ public class Student_Slot_RequestServices{
 		List<Student_Slot_Request> list= ssrdao.getRequestsByStudentId(student_id);
 		JSONArray first = new JSONArray();
 		
+		
 		try {
+//			System.out.println(list.size());
 			for(int i=0;i<list.size();i++) {
 				Student_Slot_Request ssr=list.get(i);
 				JSONObject details= new JSONObject();
-				int cid=s.getCounselorIdBySlotId(ssr.getSlot_id());
+				int slot_id=ssr.getSlot_id();
+//				System.out.print("slot_id ");
+//				System.out.println(slot_id);
+				int cid=s.getCounselorIdBySlotId(slot_id);
+/*				
+				System.out.print("Counselor id ");
+				System.out.println(counselor_id);
+				System.out.print("Cid ");
+				System.out.println(cid);
+*/				
 				if(counselor_id==cid) {
 					details.append("slot_id", ssr.getSlot_id());
-					details.append("request_id", ssr.getIdRequest());					
+					details.append("request_id", ssr.getIdRequest());
+					first.put(details);
 				}
-				first.put(details);
 			}
 			return first.toString();
 		}catch(Exception e) {	
@@ -126,18 +137,22 @@ public class Student_Slot_RequestServices{
 	@Path("/addRequest")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public int addRequest(String data) throws JSONException{
+	public String addRequest(String data) throws JSONException{
 		JSONObject object = new JSONObject(data);
 		int slot_id = (int)object.getInt("slot_id");
 		int student_id = (int)object.getInt("student_id");
+		
+		System.out.println("HELOOOOOO");
+		System.out.println(slot_id);
+		
 
 		SlotDAO sdao=new SlotDAO();
 		Slot slot=sdao.getSlotbySlotId(slot_id);
 		if(slot==null) {
-			return 0;
+			return "0";
 		}
 		if(slot.isStatus()) {
-			return 0;
+			return "0";
 		}
 		
 		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
@@ -147,10 +162,14 @@ public class Student_Slot_RequestServices{
 		S.setSlot_id(slot_id);
 		S.setStudent_id(student_id);
 		try {
-			return ssrdao.addRequest(S);
+			int x=ssrdao.addRequest(S);
+			if(x==-1) {
+				return "0";
+			}
+			return "1";
 		}catch(Exception e) {
 			e.printStackTrace();
-			return 0;
+			return "0";
 		}
 	}
 	

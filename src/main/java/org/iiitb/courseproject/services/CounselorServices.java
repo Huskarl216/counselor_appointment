@@ -36,31 +36,45 @@ public class CounselorServices{
 
 	
 	@POST
-	@Path("/requestSlot/")
+	@Path("/acceptRequest/")
 	@Consumes("application/json")
 	@Produces("application/json")	
-	public int acceptRequest(String data)  throws JSONException{
+	public String acceptRequest(String data)  throws JSONException{
 		JSONObject Data = new JSONObject(data);
-		int student_id = (int)Data.getInt("student_id");
-		int slot_id = (int)Data.getInt("slot_id");
-		
+//		int student_id = (int)Data.getInt("student_id");
+//		int slot_id = (int)Data.getInt("slot_id");
+		int request_id = (int)Data.getInt("request_id");
+
 		StudentBookingHistoryDAO sbhdao = new StudentBookingHistoryDAO();
 		Student_Slot_RequestDAO ssrdao = new Student_Slot_RequestDAO();
 		SlotDAO slotdao = new SlotDAO();
+		StudentDAO studentdao=new StudentDAO();
+		
+		Student_Slot_Request ssr=ssrdao.getRequestByRequestId(request_id);
+		int slot_id=ssr.getSlot_id();
+		int student_id=ssr.getStudent_id();
+		
 		Slot s= slotdao.getSlotbySlotId(slot_id);
 		
 		if(s.isStatus()==true) {
-			return -1;
+			return null;
 		}
 		else {
+			JSONObject details = new JSONObject();
 			Slot updatedslot = new Slot();
 			updatedslot.setStatus(true);
+			
+			Student student_object=studentdao.getStudentById(student_id);
+			String student_name=student_object.getName();
 			
 			slotdao.setStatus(updatedslot, slot_id);
 			sbhdao.addBooking(new StudentBookingHistory(student_id,slot_id));
 			ssrdao.removeAllBySlotId(slot_id);
 			
-			return 1;
+			details.append("student_name",student_name );
+			details.append("slot_id",slot_id );
+			return details.toString();
+			
 		}
 	}
 	

@@ -26,6 +26,10 @@ public class Student_Slot_RequestDAO extends HibernateDAO<Student_Slot_Request> 
 		super.deleteRow(entity, "slot_id", slot_id);
 	}
 	
+	public Student_Slot_Request getRequestByRequestId(int request_id) {
+		return super.find(entity, "idRequest", request_id);
+	}
+	
 	public List<Student_Slot_Request> getRequestsBySlotId(int slot_id){
 		return super.findAll(entity, "Slot_id", slot_id);
 	}
@@ -33,4 +37,6 @@ public class Student_Slot_RequestDAO extends HibernateDAO<Student_Slot_Request> 
 	public List<Student_Slot_Request> getRequestsByStudentId(int student_id){
 		return super.findAll(entity, "Student_id", student_id);		
 	}
+
+	
 }

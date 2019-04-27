@@ -7,7 +7,7 @@ import java.util.List;
 import org.iiitb.courseproject.model.*;
 
 public class StudentBookingHistoryDAO extends HibernateDAO<StudentBookingHistory> {
-	String entity="Student_Slot_Request";
+	String entity="StudentBookingHistory";
 
 	public int addBooking(StudentBookingHistory S) {
 		try {
@@ -22,9 +22,15 @@ public class StudentBookingHistoryDAO extends HibernateDAO<StudentBookingHistory
 		}
 	}
 	
-	public List<StudentBookingHistory> getBookingsByStudentId(int id){
-		return super.findAll(entity, "Student_id", id);
+	public List<StudentBookingHistory> getBookingsByStudentId(int student_id){
+		return super.findAll(entity, "Student_id", student_id);
 	}
 
+	public List<StudentBookingHistory> getBookingsBySlotId(int slot_id){
+		return super.findAll(entity, "Slot_id", slot_id);
+	}
 	
+	public StudentBookingHistory getBookingBySlotId(int slot_id) {
+		return super.find(entity, "Slot_id", slot_id);
+	}
 }

@@ -75,3 +75,9 @@ body {
 .bookedslot {
 	background-color: greenyellow;
 }
+
+.classBookedStudentName{
+	float:right;
+	padding-right:10px;
+	
+}

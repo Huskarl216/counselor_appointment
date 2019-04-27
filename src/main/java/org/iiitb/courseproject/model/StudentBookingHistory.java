@@ -5,6 +5,9 @@ public class StudentBookingHistory {
 	private int Student_id;
 	private int Slot_id;
 	
+	public StudentBookingHistory() {
+		
+	}
 	
 	public StudentBookingHistory(int Student_id,int Slot_id) {
 		this.Student_id=Student_id;

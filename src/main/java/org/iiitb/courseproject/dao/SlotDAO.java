@@ -26,6 +26,11 @@ public class SlotDAO extends HibernateDAO<Slot> {
 	
 	public int getCounselorIdBySlotId(int slotid) {
 		int date_id=this.getDateIdBySlotId(slotid);
+		System.out.print("Date_id=");
+		System.out.println(date_id);
+		if(date_id==0) {
+			return 0;
+		}
 		DateDAO d=new DateDAO();
 		return d.getCounselorIdByDateId(date_id);
 	}
@@ -33,14 +38,16 @@ public class SlotDAO extends HibernateDAO<Slot> {
 	public int setStatus(Slot slot,int slot_id) {
 		try {
 			List<Field> fields = new ArrayList<Field>();
-			Field status_field = slot.getClass().getDeclaredField("status");
+			Field status_field = slot.getClass().getDeclaredField("Status");
 			status_field.setAccessible(true);
 			fields.add(status_field);
 
-			if(super.update(slot, "slot_id", slot_id, fields)==1)
+			if(super.update(slot, "idSlot", slot_id, fields)==1) {
 				return 1;
-			else
+			}
+			else {
 				return 0;
+			}
 			
 		}
 		catch(Exception e) {
