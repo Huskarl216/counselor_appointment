@@ -8,7 +8,7 @@
   <name>spe Maven Webapp</name>
 
     <build>
-        <finalName>Counselor Appointment</finalName>
+        <finalName>Counselor_Appointment</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -109,6 +109,7 @@
         <jersey.version>2.25</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    
 </project>
   
   <!-- 
